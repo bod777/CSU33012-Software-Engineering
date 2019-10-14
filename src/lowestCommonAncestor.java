@@ -50,56 +50,6 @@ public class lowestCommonAncestor<Key extends Comparable<Key>>
 		if (x == null) return 0;
 		else return x.N;
 	}
-
-	public boolean contains(Key key) {
-		return get(key) != null;
-	}
-
-	public Key get(Key key) { 
-		return get(root, key); 
-	}
-	private Key get(Node x, Key key) {
-		if (x == null) return null;
-		int cmp = key.compareTo(x.data);
-		if      (cmp < 0) return get(x.left, key);
-		else if (cmp > 0) return get(x.right, key);
-		else              return x.data;
-	}
-
-	public void delete(Key key) {
-		root = delete(root, key);
-	}
-	private Node delete(Node x, Key key) {                                  
-		if (x == null) return null;
-		int cmp = key.compareTo(x.data);
-		if      (cmp < 0) x.left  = delete(x.left,  key);
-		else if (cmp > 0) x.right = delete(x.right, key);
-		else { 
-			if (x.right == null) return x.left;
-			if (x.left  == null) return x.right;
-			Node t = x;
-			x = max(t.left);                              
-			x.left = deleteMax(t.left);                 
-			x.right = t.right;                                             
-		} 
-		x.N = size(x.left) + size(x.right) + 1;
-		return x;
-	} 
-
-	private Node deleteMax(Node x) 
-	{
-		if (x.right == null) return x.left;
-		x.right = deleteMax(x.right);
-		x.N = size(x.left) + size(x.right) + 1;                              
-		return x;
-	}
-
-	public Node max(Node node)   
-	{
-		if(node.right!=null)
-			return max(node.right);
-		return node;
-	}
 	
 	public String printKeysInOrder() {
 		if (isEmpty()) {
