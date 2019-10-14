@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -144,5 +146,61 @@ class lowestCommonAncestorTest {
 		assertEquals("[]","((()())Bríd(()Marie(()Philip())))",tree.printKeysInOrder());
 		tree.put("Marie");	
 		assertEquals("[]","((()())Bríd(()Marie(()Philip())))",tree.printKeysInOrder());
+	}
+	
+	@Test
+	public void testingIsEmpty() {
+		lowestCommonAncestor<String> treeString = new lowestCommonAncestor<String>();
+		lowestCommonAncestor<Integer> treeInteger = new lowestCommonAncestor<Integer>();
+		
+		assertTrue("[]",treeString.isEmpty());
+		assertTrue("[]",treeInteger.isEmpty());
+		
+		treeString.put("Hello");
+		assertFalse("[]",treeString.isEmpty());
+		
+		treeInteger.put(1);
+		assertFalse("[]",treeInteger.isEmpty());
+	}
+	
+	@Test
+	public void testingSizeForString() {
+		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
+		
+		tree.put(null);
+		assertEquals("[]",0,tree.size());
+		
+		tree.put("Hello");
+		assertEquals("[]",1,tree.size());
+		
+		tree.put("Bríd");
+		tree.put("Marie");
+		tree.put("Philip");
+		tree.put("Margaret");
+		tree.put("Thomas");
+		tree.put("Lily");
+		tree.put("Phil");
+		
+		assertEquals("[]",8,tree.size());
+	}
+	
+	@Test
+	public void testingSizeForInteger() {
+		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
+		
+		tree.put(null);
+		assertEquals("[]",0,tree.size());
+		
+		tree.put(11);
+		assertEquals("[]",1,tree.size());
+		
+		tree.put(10);	
+		tree.put(9);	  
+		tree.put(8);		   
+		tree.put(7);							
+		tree.put(6);		
+		tree.put(5);
+		
+		assertEquals("[]",7,tree.size());
 	}
 }
