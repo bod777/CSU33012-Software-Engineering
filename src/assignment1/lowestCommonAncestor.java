@@ -26,28 +26,16 @@ public class lowestCommonAncestor<Key extends Comparable<Key>>
 	
 	private Node root;
 	
-	public void put(Key key) {
-		if (key == null) {  
-			return; 
-		}
-		root = put(root, key);
+	public void add(Node node) {
+		node.ancestors = new ArrayList <Node> ();
+		node.ancestors.add(node);
 	}
-	private Node put(Node x, Key key) {
-		if (x == null) {
-			return new Node(key);
+	public void addAncestors(Node node1, Node node2) {
+		for (int i=0; i<node1.ancestors.size();i++) {
+			if(!node2.ancestors.contains(node1.ancestors.get(i))) {
+				node2.ancestors.add(node1.ancestors.get(i));
+			}
 		}
-		int cmp = key.compareTo(x.data);
-		if      (cmp < 0) {
-			x.left  = put(x.left,  key);
-		}
-		else if (cmp > 0) {
-			x.right = put(x.right, key);
-		}
-		else {
-			x.data   = key;
-		}
-		x.N = 1 + size(x.left) + size(x.right);
-		return x;
 	}
 
 	public boolean isEmpty() { 
