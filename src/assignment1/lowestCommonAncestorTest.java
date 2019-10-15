@@ -6,304 +6,191 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import assignment1.lowestCommonAncestor.Node;
+
 /* NEED TO ADD IN assertEquals comments */
 
 
 class lowestCommonAncestorTest {
 
 	@Test
-	public void testingEmptyBST() {
-		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
-		
-		assertEquals("The tree is empty, thus it will return null",null,tree.lowestCommonAncestorBST(1,2));
-		tree.put(1);
-		assertEquals("The tree has one node, thus it will return null",null,tree.lowestCommonAncestorBST(1,2));
-		tree.put(2);
-		tree.put(3);
-		assertEquals("The root will be returned, as it is the LCA",(Integer)1,tree.lowestCommonAncestorBST(1,2));
-	}
-	@Test
-	public void testingEmptyForStringBST() {
-		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
-		
-		assertEquals("The tree is empty, thus it will return null",null,tree.lowestCommonAncestorBST("Cow","Dog"));
-		tree.put("Cow");
-		assertEquals("The tree has one node, thus it will return null",null,tree.lowestCommonAncestorBST("Cow","Dog"));
-		tree.put("Dog");
-		tree.put("Cat");
-		assertEquals("The root will be returned, as it is the LCA","Cow",tree.lowestCommonAncestorBST("Cat","Dog"));
-	}
-	@Test
-	public void testingNonExistentNodesForIntegerBST() {
-		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
-		tree.put(10);
-		tree.put(6);
-		tree.put(11);
-		tree.put(13);
-		tree.put(9);
-		
-		assertEquals("One input is null, thus it will return null",null,tree.lowestCommonAncestorBST(null,6));
-		assertEquals("Two input is null, thus it will return null",null,tree.lowestCommonAncestorBST(null, null));
-		assertEquals("One input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorBST(7,10));
-		assertEquals("Two input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorBST(7,100));
-	}
-	@Test
-	public void testingNonExistentNodesForStringBST() {
-		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
-		tree.put("Bríd");
-		tree.put("Marie");
-		tree.put("Philip");
-		tree.put("Margaret");
-		tree.put("Thomas");
-		tree.put("Lily");
-		tree.put("Phil");
-		
-		assertEquals("One input is null, thus it will return null",null,tree.lowestCommonAncestorBST(null, "Clare"));
-		assertEquals("Two input is null, thus it will return null",null,tree.lowestCommonAncestorBST(null, null));
-		assertEquals("One input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorBST("Christoper", "Philip"));
-		assertEquals("Two input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorBST("Christoper", "Clare"));
-	}
-	@Test
-	public void testingTreeForIntegerBST() {
-		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
-		tree.put(10);	//				10
-		tree.put(8);	//			   /  \
-		tree.put(11);	//			  8	   11
-		tree.put(6);	//			 / \								
-		tree.put(3);	//			6	9
-		tree.put(4);	//		   / \
-		tree.put(7);	//		  3	  7
-		tree.put(9);	//		 / \
-		tree.put(2);	//		2	4
-		tree.put(5);	//	   /	 \
-		tree.put(1);	//	  1		  5
-		assertEquals("[]",(Integer)6,tree.lowestCommonAncestorBST(5,6));
-		assertEquals("[]",(Integer)10,tree.lowestCommonAncestorBST(8,11));
-		assertEquals("[]",(Integer)3,tree.lowestCommonAncestorBST(1,5));
-	}
-	
-	@Test
-	public void testingTreeForStringBST() {
-		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
-		tree.put("cow");	
-		tree.put("cat");	
-		tree.put("dog");	
-		tree.put("monkey");									
-		tree.put("ant");	
-		tree.put("pig");	
-		tree.put("fish");	
-
-		assertEquals("[]","cow",tree.lowestCommonAncestorBST("ant","monkey"));
-		assertEquals("[]","monkey",tree.lowestCommonAncestorBST("fish","pig"));
-		assertEquals("[]","dog",tree.lowestCommonAncestorBST("monkey","dog"));
-		tree.put("");
-		assertEquals("[]","cow",tree.lowestCommonAncestorBST("","dog"));
-	}
-	
-	@Test
-	public void testingOnesidedTreeForIntegerBST() {
-		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
-		tree.put(10);	
-		tree.put(9);	  
-		tree.put(8);		   
-		tree.put(7);							
-		tree.put(6);		
-		tree.put(5);		
-		assertEquals("[]",(Integer)6,tree.lowestCommonAncestorBST(5,6));
-		assertEquals("[]",(Integer)9,tree.lowestCommonAncestorBST(7,9));
-		assertEquals("[]",(Integer)10,tree.lowestCommonAncestorBST(5,10));	
-	}
-	
-	@Test
-	public void testingPutForInteger() {
-		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
-		tree.put(null);
-		assertEquals("[]","()",tree.printKeysInOrder());
-		tree.put(10);	
-		assertEquals("[]","(()10())",tree.printKeysInOrder());
-		tree.put(8);	
-		tree.put(11);	
-		assertEquals("[]","((()8())10(()11()))",tree.printKeysInOrder());
-		tree.put(6);							
-		tree.put(9);	
-		assertEquals("[]","(((()6())8(()9()))10(()11()))",tree.printKeysInOrder());
-		tree.put(7);	
-		assertEquals("[]","(((()6(()7()))8(()9()))10(()11()))",tree.printKeysInOrder());
-		tree.put(8);	
-		assertEquals("[]","(((()6(()7()))8(()9()))10(()11()))",tree.printKeysInOrder());
-	}
-	
-	@Test
-	public void testingPutForString() {
-		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
-		tree.put(null);
-		assertEquals("[]","()",tree.printKeysInOrder());
-		tree.put("Bríd");	
-		assertEquals("[]","(()Bríd())",tree.printKeysInOrder());
-		tree.put("Marie");	
-		tree.put("Philip");	
-		assertEquals("[]","(()Bríd(()Marie(()Philip())))",tree.printKeysInOrder());
-		tree.put("");	
-		assertEquals("[]","((()())Bríd(()Marie(()Philip())))",tree.printKeysInOrder());
-		tree.put("Marie");	
-		assertEquals("[]","((()())Bríd(()Marie(()Philip())))",tree.printKeysInOrder());
-	}
-	
-	@Test
-	public void testingIsEmpty() {
-		lowestCommonAncestor<String> treeString = new lowestCommonAncestor<String>();
-		lowestCommonAncestor<Integer> treeInteger = new lowestCommonAncestor<Integer>();
-		
-		assertTrue("[]",treeString.isEmpty());
-		assertTrue("[]",treeInteger.isEmpty());
-		
-		treeString.put("Hello");
-		assertFalse("[]",treeString.isEmpty());
-		
-		treeInteger.put(1);
-		assertFalse("[]",treeInteger.isEmpty());
-	}
-	
-	@Test
-	public void testingSizeForString() {
-		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
-		
-		tree.put(null);
-		assertEquals("[]",0,tree.size());
-		
-		tree.put("Hello");
-		assertEquals("[]",1,tree.size());
-		
-		tree.put("Bríd");
-		tree.put("Marie");
-		tree.put("Philip");
-		tree.put("Margaret");
-		tree.put("Thomas");
-		tree.put("Lily");
-		tree.put("Phil");
-		
-		assertEquals("[]",8,tree.size());
-	}
-	
-	@Test
-	public void testingSizeForInteger() {
-		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
-		
-		tree.put(null);
-		assertEquals("[]",0,tree.size());
-		
-		tree.put(11);
-		assertEquals("[]",1,tree.size());
-		
-		tree.put(10);	
-		tree.put(9);	  
-		tree.put(8);		   
-		tree.put(7);							
-		tree.put(6);		
-		tree.put(5);
-		
-		assertEquals("[]",7,tree.size());
-	}
-		
-	@Test
 	public void testingEmptyDAG() {
 		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
 		
-		assertEquals("The tree is empty, thus it will return null",null,tree.lowestCommonAncestorDAG(1,2));
-		tree.put(1);
-		assertEquals("The tree has one node, thus it will return null",null,tree.lowestCommonAncestorDAG(1,2));
-		tree.put(2);
-		tree.put(3);
-		assertEquals("The root will be returned, as it is the LCA",(Integer)1,tree.lowestCommonAncestorDAG(1,2));
+		Node node1 = new Node(1);
+		Node node2 = new Node(2);
+		Node node3 = new Node(3);
+		
+		assertEquals("The tree is empty, thus it will return null",null,tree.lowestCommonAncestorDAG(node1, node2));
+		tree.add(node1);
+		assertEquals("The tree has one node, thus it will return null",null,tree.lowestCommonAncestorDAG(node1, null));
+		tree.add(node2);
+		tree.addAncestors(node1,node2);
+		tree.add(node3);
+		tree.addAncestors(node1,node3);
+		assertEquals("The node1 will be returned, as it is the LCA",(Integer)1,tree.lowestCommonAncestorDAG(node2,node3));
 	}
 	@Test
 	public void testingEmptyForStringDAG() {
 		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
+			
+		Node node1 = new Node("Dog");
+		Node node2 = new Node("Cat");
+		Node node3 = new Node("Cow");
 		
-		assertEquals("The tree is empty, thus it will return null",null,tree.lowestCommonAncestorDAG("Cow","Dog"));
-		tree.put("Cow");
-		assertEquals("The tree has one node, thus it will return null",null,tree.lowestCommonAncestorDAG("Cow","Dog"));
-		tree.put("Dog");
-		tree.put("Cat");
-		assertEquals("The root will be returned, as it is the LCA","Cow",tree.lowestCommonAncestorDAG("Cat","Dog"));
+		assertEquals("The tree is empty, thus it will return null",null,tree.lowestCommonAncestorDAG(node1, node2));
+		tree.add(node1);
+		assertEquals("The tree has one node, thus it will return null",null,tree.lowestCommonAncestorDAG(node1, null));
+		tree.add(node2);
+		tree.addAncestors(node1,node2);
+		tree.add(node3);
+		tree.addAncestors(node1,node3);
+		assertEquals("The node1 will be returned, as it is the LCA","Dog",tree.lowestCommonAncestorDAG(node2,node3));
 	}
 	@Test
 	public void testingNonExistentNodesForIntegerDAG() {
 		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
-		tree.put(10);
-		tree.put(6);
-		tree.put(11);
-		tree.put(13);
-		tree.put(9);
-			
-		assertEquals("One input is null, thus it will return null",null,tree.lowestCommonAncestorDAG(null,6));
+		
+		Node node1 = new Node(1);
+		Node node2 = new Node(2);
+		Node node3 = new Node(3);
+		Node node4 = new Node(4);
+		Node node5 = new Node(5);
+		Node node6 = new Node(6);
+		Node node7 = new Node(7);
+		
+		tree.add(node1);
+		tree.add(node2);
+		tree.add(node3);
+		tree.add(node4);
+		tree.add(node5);
+		
+		tree.addAncestors(node1,node2);
+		tree.addAncestors(node1,node3);
+		tree.addAncestors(node2,node4);
+		tree.addAncestors(node3,node5);
+				
+		assertEquals("One input is null, thus it will return null",null,tree.lowestCommonAncestorDAG(null,node3));
 		assertEquals("Two input is null, thus it will return null",null,tree.lowestCommonAncestorDAG(null, null));
-		assertEquals("One input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorDAG(7,10));
-		assertEquals("Two input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorDAG(7,100));
+		assertEquals("One input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorDAG(node5,node6));
+		assertEquals("Two input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorDAG(node6,node7));
 	}
 	@Test
 	public void testingNonExistentNodesForStringDAG() {
 		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
-		tree.put("Bríd");
-		tree.put("Marie");
-		tree.put("Philip");
-		tree.put("Margaret");
-		tree.put("Thomas");
-		tree.put("Lily");
-		tree.put("Phil");
+		Node node1 = new Node("Bríd");
+		Node node2 = new Node("Marie");
+		Node node3 = new Node("Philip");
+		Node node4 = new Node("Margaret");
+		Node node5 = new Node("Thomas");
+		Node node6 = new Node("Lily");
+		Node node7 = new Node("Phil");
 		
-		assertEquals("One input is null, thus it will return null",null,tree.lowestCommonAncestorDAG(null, "Clare"));
+		tree.add(node1);
+		tree.add(node2);
+		tree.add(node3);
+		tree.add(node4);
+		tree.add(node5);
+		
+		tree.addAncestors(node1,node2);
+		tree.addAncestors(node1,node3);
+		tree.addAncestors(node2,node4);
+		tree.addAncestors(node3,node5);
+		
+		assertEquals("One input is null, thus it will return null",null,tree.lowestCommonAncestorDAG(null, node3));
 		assertEquals("Two input is null, thus it will return null",null,tree.lowestCommonAncestorDAG(null, null));
-		assertEquals("One input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorDAG("Christoper", "Philip"));
-		assertEquals("Two input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorDAG("Christoper", "Clare"));
+		assertEquals("One input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorDAG(node5, node6));
+		assertEquals("Two input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorDAG(node6, node7));
 	}
 	@Test
 	public void testingTreeForIntegerDAG() {
 		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
-		tree.put(10);	//				10
-		tree.put(8);	//			   /  \
-		tree.put(11);	//			  8	   11
-		tree.put(6);	//			 / \								
-		tree.put(3);	//			6	9
-		tree.put(4);	//		   / \
-		tree.put(7);	//		  3	  7
-		tree.put(9);	//		 / \
-		tree.put(2);	//		2	4
-		tree.put(5);	//	   /	 \
-		tree.put(1);	//	  1		  5
-		assertEquals("[]",(Integer)6,tree.lowestCommonAncestorDAG(5,6));
-		assertEquals("[]",(Integer)10,tree.lowestCommonAncestorDAG(8,11));
-		assertEquals("[]",(Integer)3,tree.lowestCommonAncestorDAG(1,5));
+		
+		Node node1 = new Node(1);
+		Node node2 = new Node(2);
+		Node node3 = new Node(3);
+		Node node4 = new Node(4);
+		Node node5 = new Node(5);
+		Node node6 = new Node(6);
+		Node node7 = new Node(7);
+		
+		tree.add(node1);
+		tree.add(node2);
+		tree.add(node3);
+		tree.add(node4);
+		tree.add(node5);
+		
+		tree.addAncestors(node1,node2);
+		tree.addAncestors(node1,node3);
+		tree.addAncestors(node2,node4);
+		tree.addAncestors(node3,node5);
+		tree.addAncestors(node5,node6);
+		tree.addAncestors(node6,node7);
+		tree.addAncestors(node4,node7);
+		
+		assertEquals("[]",(Integer)5,tree.lowestCommonAncestorDAG(node5,node6));
+		assertEquals("[]",(Integer)1,tree.lowestCommonAncestorDAG(node2,node3));
+		assertEquals("[]",(Integer)1,tree.lowestCommonAncestorDAG(node4,node7));
 	}
 		
 	@Test
 	public void testingTreeForStringDAG() {
 		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
-		tree.put("cow");	
-		tree.put("cat");	
-		tree.put("dog");	
-		tree.put("monkey");									
-		tree.put("ant");	
-		tree.put("pig");	
-		tree.put("fish");	
-		assertEquals("[]","cow",tree.lowestCommonAncestorDAG("ant","monkey"));
-		assertEquals("[]","monkey",tree.lowestCommonAncestorDAG("fish","pig"));
-		assertEquals("[]","dog",tree.lowestCommonAncestorDAG("monkey","dog"));
-		tree.put("");
-		assertEquals("[]","cow",tree.lowestCommonAncestorDAG("","dog"));
+		
+		Node node1 = new Node("cat");
+		Node node2 = new Node("dog");
+		Node node3 = new Node("cow");
+		Node node4 = new Node("pig");
+		Node node5 = new Node("bird");
+		Node node6 = new Node("ant");
+		Node node7 = new Node("snake");
+		
+		tree.add(node1);
+		tree.add(node2);
+		tree.add(node3);
+		tree.add(node4);
+		tree.add(node5);
+		
+		tree.addAncestors(node1,node2);
+		tree.addAncestors(node1,node3);
+		tree.addAncestors(node2,node4);
+		tree.addAncestors(node3,node5);
+		tree.addAncestors(node5,node6);
+		tree.addAncestors(node6,node7);
+		tree.addAncestors(node4,node7);
+		
+		assertEquals("[]","cat",tree.lowestCommonAncestorDAG(node4,node5));
+		assertEquals("[]","dog",tree.lowestCommonAncestorDAG(node2,node4));
+		assertEquals("[]","pig",tree.lowestCommonAncestorDAG(node4,node7));
 	}
 		
 	@Test
 	public void testingOnesidedTreeForIntegerDAG() {
 		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
-		tree.put(10);	
-		tree.put(9);	  
-		tree.put(8);		   
-		tree.put(7);							
-		tree.put(6);		
-		tree.put(5);		
-		assertEquals("[]",(Integer)6,tree.lowestCommonAncestorDAG(5,6));
-		assertEquals("[]",(Integer)9,tree.lowestCommonAncestorDAG(7,9));
-		assertEquals("[]",(Integer)10,tree.lowestCommonAncestorDAG(5,10));	
+
+		Node node1 = new Node(1);
+		Node node2 = new Node(2);
+		Node node3 = new Node(3);
+		Node node4 = new Node(4);
+		Node node5 = new Node(5);
+		Node node6 = new Node(6);
+		Node node7 = new Node(7);
+		
+		tree.add(node1);
+		tree.add(node2);
+		tree.add(node3);
+		tree.add(node4);
+		tree.add(node5);
+		
+		tree.addAncestors(node1,node2);
+		tree.addAncestors(node2,node3);
+		tree.addAncestors(node3,node4);
+		tree.addAncestors(node4,node5);
+		tree.addAncestors(node5,node6);
+		tree.addAncestors(node6,node7);
+		
+		assertEquals("[]",(Integer)5,tree.lowestCommonAncestorDAG(node5,node6));
+		assertEquals("[]",(Integer)2,tree.lowestCommonAncestorDAG(node6,node2));
+		assertEquals("[]",(Integer)1,tree.lowestCommonAncestorDAG(node1,node7));	
 	}		
 }
