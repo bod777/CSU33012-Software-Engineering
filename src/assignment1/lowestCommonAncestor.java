@@ -13,7 +13,9 @@ public class lowestCommonAncestor<Key extends Comparable<Key>>
 		private Node left;             
 		private Node right;
 		private Key data;
+		private int N;
 		ArrayList <Node> ancestors;
+		
 
 		public Node(Key value) {
 			this.data = value;         // associated data
@@ -31,11 +33,19 @@ public class lowestCommonAncestor<Key extends Comparable<Key>>
 		root = put(root, key);
 	}
 	private Node put(Node x, Key key) {
-		if (x == null) return new Node(key, 1);
+		if (x == null) {
+			return new Node(key);
+		}
 		int cmp = key.compareTo(x.data);
-		if      (cmp < 0) x.left  = put(x.left,  key);
-		else if (cmp > 0) x.right = put(x.right, key);
-		else              x.data   = key;
+		if      (cmp < 0) {
+			x.left  = put(x.left,  key);
+		}
+		else if (cmp > 0) {
+			x.right = put(x.right, key);
+		}
+		else {
+			x.data   = key;
+		}
 		x.N = 1 + size(x.left) + size(x.right);
 		return x;
 	}
@@ -98,18 +108,20 @@ public class lowestCommonAncestor<Key extends Comparable<Key>>
 			if (nodePath1.size() == 0 && nodePath2.size() > 0) {
 				System.out.println("Node B is present but Node A is not.");
 			}
-			return -1;
+			return null;
 		}
-
-		for (int i = 0; i < nodePath1.size() && i < nodePath2.size(); i++) {
+		int i;
+		
+		for (i = 0; i < nodePath1.size() && i < nodePath2.size(); i++) {
 			if (!nodePath1.get(i).equals(nodePath2.get(i)))
 				break;
 		}
+		
 		return nodePath1.get(i-1);
 	}
 	
 	public Key lowestCommonAncestorDAG(Key node1, Key node2) {
-		return findLowestCommonAncestor(root, node1, node2);
+		return findLowestCommonAncestorDAG(root, node1, node2);
 	}
 	private Key findLowestCommonAncestorDAG(Node root, Key n1, Key n2) {
 /*		if (n1 != null && n2 != null) {
@@ -124,7 +136,7 @@ public class lowestCommonAncestor<Key extends Comparable<Key>>
 		}*/
 		return root.data;
 	}
-	
+	//findPath() function is okay
 	private boolean findPath(Node root, Key n, List<Key> path)
 	{
 		if (root == null) {
