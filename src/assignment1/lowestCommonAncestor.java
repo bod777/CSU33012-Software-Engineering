@@ -13,12 +13,12 @@ public class lowestCommonAncestor<Key extends Comparable<Key>>
 		private Node left;             
 		private Node right;
 		private Key data;
-		private int N;             // number of nodes in subtree
+		ArrayList <Node> ancestors;
 
-		public Node(Key value, int N) {
+		public Node(Key value) {
 			this.data = value;         // associated data
-			left = right = null;	  // left and right subtrees
-			this.N = N;
+			left = right = null;	// left and right subtrees
+			ancestors = null;
 		}
 	}
 	
@@ -75,27 +75,56 @@ public class lowestCommonAncestor<Key extends Comparable<Key>>
 	private List<Key> nodePath2 = new ArrayList<>();
 	//will use lists as a method to track the nodes
 	
-	public Key lowestCommonAncestor(Key node1, Key node2) {
+	public Key lowestCommonAncestorBST(Key node1, Key node2) {
 		nodePath1.clear();
 		nodePath2.clear();
-		return findLowestCommonAncestor(root, node1, node2);
+		return findLowestCommonAncestorBST(root, node1, node2);
 	}
-
-	private Key findLowestCommonAncestor(Node root, Key n1, Key n2) {
+	
+	private Key findLowestCommonAncestorBST(Node root, Key n1, Key n2) {
 
 		if (!findPath(root, n1, nodePath1) || !findPath(root, n2, nodePath2)) {
-			return null;
+			if (nodePath1.size() == 0 && nodePath2.size() == 0) {
+				if (!nodePath2.contains(n1)&&!nodePath2.contains(n2)) {
+					System.out.println("These nodes does not exist in the tree.");
+				}
+				else {
+					System.out.println("Tree is empty.");
+				}
+			}
+			if (nodePath1.size() > 0 && nodePath2.size() == 0) {
+				System.out.println("Node A is present but Node B is not.");
+			}
+			if (nodePath1.size() == 0 && nodePath2.size() > 0) {
+				System.out.println("Node B is present but Node A is not.");
+			}
+			return -1;
 		}
 
-		int i;
-		for (i = 0; i < nodePath1.size() && i < nodePath2.size(); i++) {
+		for (int i = 0; i < nodePath1.size() && i < nodePath2.size(); i++) {
 			if (!nodePath1.get(i).equals(nodePath2.get(i)))
 				break;
 		}
-
 		return nodePath1.get(i-1);
 	}
-
+	
+	public Key lowestCommonAncestorDAG(Key node1, Key node2) {
+		return findLowestCommonAncestor(root, node1, node2);
+	}
+	private Key findLowestCommonAncestorDAG(Node root, Key n1, Key n2) {
+/*		if (n1 != null && n2 != null) {
+			if (n1.ancestors != null && n2.ancestors !=null) {
+				
+			}
+			else {
+				
+			}
+		else {
+			return 0;
+		}*/
+		return root.data;
+	}
+	
 	private boolean findPath(Node root, Key n, List<Key> path)
 	{
 		if (root == null) {
