@@ -52,11 +52,11 @@ public class lowestCommonAncestor<Key extends Comparable<Key>>
 
 	public boolean isEmpty() { 
 		return size() == 0; 
-	}	// return number of nodes in the tree
+	}
 	
 	public int size() { 
 		return size(root); 
-	}	// return number of key-value pairs in BST rooted at x
+	}	
 	private int size(Node x) {
 		if (x == null) return 0;
 		else return x.N;
@@ -120,21 +120,28 @@ public class lowestCommonAncestor<Key extends Comparable<Key>>
 		return nodePath1.get(i-1);
 	}
 	
-	public Key lowestCommonAncestorDAG(Key node1, Key node2) {
+	public Key lowestCommonAncestorDAG(Node node1, Node node2) {
 		return findLowestCommonAncestorDAG(root, node1, node2);
 	}
-	private Key findLowestCommonAncestorDAG(Node root, Key n1, Key n2) {
-/*		if (n1 != null && n2 != null) {
+	private Key findLowestCommonAncestorDAG(Node root, Node n1, Node n2) {
+		if (n1 != null && n2 != null) {
 			if (n1.ancestors != null && n2.ancestors !=null) {
-				
+				for (int i=0; i< n1.ancestors.size();i++) {
+					for(int j=0; j< n2.ancestors.size();j++) {
+						if (n2.ancestors.get(i) == n1.ancestors.get(j)) {
+							return n2.ancestors.get(i).data;
+						}
+						else {
+							return root.data;
+						}
+					}
+				}
 			}
 			else {
-				
+				return root.data;
 			}
-		else {
-			return 0;
-		}*/
-		return root.data;
+		}
+		return null;
 	}
 	//findPath() function is okay
 	private boolean findPath(Node root, Key n, List<Key> path)

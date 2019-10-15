@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class lowestCommonAncestorTest {
 
 	@Test
-	public void testingEmpty() {
+	public void testingEmptyBST() {
 		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
 		
 		assertEquals("The tree is empty, thus it will return null",null,tree.lowestCommonAncestorBST(1,2));
@@ -23,7 +23,7 @@ class lowestCommonAncestorTest {
 		assertEquals("The root will be returned, as it is the LCA",(Integer)1,tree.lowestCommonAncestorBST(1,2));
 	}
 	@Test
-	public void testingEmptyForString() {
+	public void testingEmptyForStringBST() {
 		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
 		
 		assertEquals("The tree is empty, thus it will return null",null,tree.lowestCommonAncestorBST("Cow","Dog"));
@@ -34,7 +34,7 @@ class lowestCommonAncestorTest {
 		assertEquals("The root will be returned, as it is the LCA","Cow",tree.lowestCommonAncestorBST("Cat","Dog"));
 	}
 	@Test
-	public void testingNonExistentNodesForInteger() {
+	public void testingNonExistentNodesForIntegerBST() {
 		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
 		tree.put(10);
 		tree.put(6);
@@ -48,7 +48,7 @@ class lowestCommonAncestorTest {
 		assertEquals("Two input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorBST(7,100));
 	}
 	@Test
-	public void testingNonExistentNodesForString() {
+	public void testingNonExistentNodesForStringBST() {
 		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
 		tree.put("Bríd");
 		tree.put("Marie");
@@ -64,7 +64,7 @@ class lowestCommonAncestorTest {
 		assertEquals("Two input is a node not in the tree, thus it will return null",null,tree.lowestCommonAncestorBST("Christoper", "Clare"));
 	}
 	@Test
-	public void testingTreeForInteger() {
+	public void testingTreeForIntegerBST() {
 		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
 		tree.put(10);	//				10
 		tree.put(8);	//			   /  \
@@ -83,7 +83,7 @@ class lowestCommonAncestorTest {
 	}
 	
 	@Test
-	public void testingTreeForString() {
+	public void testingTreeForStringBST() {
 		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
 		tree.put("cow");	
 		tree.put("cat");	
@@ -101,7 +101,7 @@ class lowestCommonAncestorTest {
 	}
 	
 	@Test
-	public void testingOnesidedTreeForInteger() {
+	public void testingOnesidedTreeForIntegerBST() {
 		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
 		tree.put(10);	
 		tree.put(9);	  
