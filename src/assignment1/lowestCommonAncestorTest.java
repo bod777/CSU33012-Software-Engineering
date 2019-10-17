@@ -8,9 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import assignment1.lowestCommonAncestor.Node;
 
-/* NEED TO ADD IN assertEquals comments */
-
-
 class lowestCommonAncestorTest {
 
 	@Test
@@ -128,9 +125,9 @@ class lowestCommonAncestorTest {
 		tree.addAncestors(node6,node7);
 		tree.addAncestors(node4,node7);
 		
-		assertEquals("[]",(Integer)5,tree.lowestCommonAncestorDAG(node5,node6));
-		assertEquals("[]",(Integer)1,tree.lowestCommonAncestorDAG(node2,node3));
-		assertEquals("[]",(Integer)1,tree.lowestCommonAncestorDAG(node4,node7));
+		assertEquals("The LCA of node5 and node6 is node5.",(Integer)5,tree.lowestCommonAncestorDAG(node5,node6));
+		assertEquals("The LCA of node2 and node3 is node1.",(Integer)1,tree.lowestCommonAncestorDAG(node2,node3));
+		assertEquals("The LCA of node4 and node7 is node1.",(Integer)1,tree.lowestCommonAncestorDAG(node4,node7));
 	}
 		
 	@Test
@@ -159,9 +156,9 @@ class lowestCommonAncestorTest {
 		tree.addAncestors(node6,node7);
 		tree.addAncestors(node4,node7);
 		
-		assertEquals("[]","cat",tree.lowestCommonAncestorDAG(node4,node5));
-		assertEquals("[]","dog",tree.lowestCommonAncestorDAG(node2,node4));
-		assertEquals("[]","pig",tree.lowestCommonAncestorDAG(node4,node7));
+		assertEquals("The LCA of pig and bird is cat.","cat",tree.lowestCommonAncestorDAG(node4,node5));
+		assertEquals("The LCA of dog and pig is dog.","dog",tree.lowestCommonAncestorDAG(node2,node4));
+		assertEquals("The LCA of pig and snake is pig.","pig",tree.lowestCommonAncestorDAG(node4,node7));
 	}
 		
 	@Test
@@ -189,8 +186,8 @@ class lowestCommonAncestorTest {
 		tree.addAncestors(node5,node6);
 		tree.addAncestors(node6,node7);
 		
-		assertEquals("[]",(Integer)5,tree.lowestCommonAncestorDAG(node5,node6));
-		assertEquals("[]",(Integer)2,tree.lowestCommonAncestorDAG(node6,node2));
-		assertEquals("[]",(Integer)1,tree.lowestCommonAncestorDAG(node1,node7));	
+		assertEquals("The LCA of node 5 and node 6 is node 5.",(Integer)5,tree.lowestCommonAncestorDAG(node5,node6));
+		assertEquals("The LCA of node 6 and node 2 is node 2.",(Integer)2,tree.lowestCommonAncestorDAG(node6,node2));
+		assertEquals("The LCA of node 1 and node 7 is node 1.",(Integer)1,tree.lowestCommonAncestorDAG(node1,node7));	
 	}		
 }
