@@ -36,7 +36,7 @@ public class DAG {
 	}
 	
 	public void addEdge(int v, int w) {
-		if (validateVertex(v)==true && validateVertex(w)==true) {
+		if (validVertex(v)==true && validVertex(w)==true) {
 			adj[v].add(w);
 			indegree[w]++;
 			E++;
@@ -65,34 +65,31 @@ public class DAG {
 		return adj[v];
 		//finds vertics that are adjacent
 	}
-	
-	private boolean validateVertex(int v) { // this function makes sure that a given vertex is possible 
-		 if (v < 0 || v >= V) {
-	        	return false;
-		 }
-	        else {
-
-	        	return true;
-	        }
+	private boolean validVertex(int v){// this function makes sure that a given vertex is possible 
+        if (v < 0 || v >= V) {
+        	return false;
+        }
+        else {
+        	return true;
+        }
 	}
-	
-	public int indegree(int v) {
-		if(validateVertex(v)==false) {
+	public int indegree(int v){
+		if(validVertex(v)==false){
 			return -1;
 		}
-		else {
+		else{
 			return indegree[v];
 		}
 	}
 	
-	public int outdegree(int v) {
-		if(validateVertex(v)==true) {
+	public int outdegree(int v){
+		if(validVertex(v)==false){
 			return -1;
 		}
-		else {
+		else{
 			return adj[v].size();
 		}
-	}
+    }
 	
 	public void findCycle(int v) {
         marked[v] = true;
@@ -109,67 +106,5 @@ public class DAG {
             }
         }
         stack[v] = false;		
-	}
-	
-	public DAG reverse() { // returns DAG in reverse order
-		DAG reverse = new DAG(V);
-		for (int v = 0; v < V; v++) {
-            for (int w : adj(v)) {
-                reverse.addEdge(w, v); 
-            }
-        }
-        return reverse;		
-	}
-	
-	public int LCA(int v, int w) {
-		findCycle(0);
-		
-		if(hasCycle) {
-			return -1; 
-		}
-		
-		DAG reverse = reverse();
-
-		ArrayList<Integer> pathofV = reverse.BFS(v);
-		ArrayList<Integer> pathofW = reverse.BFS(w);
-		ArrayList<Integer> mutuals = new ArrayList<Integer>();
-		boolean found = false;
-		for(int i = 0; i<pathofV.size(); i++){
-
-			for(int j = 0; j<pathofW.size(); j++){
-				if(pathofV.get(i)==pathofW.get(j)) {
-					mutuals.add(pathofV.get(i));
-					found=true;
-				}
-			}
-		}
-		if(found) {
-			
-			return mutuals.get(0);
-		}
-		else {
-			return -1;
-		}
-	}
-	
-	public ArrayList<Integer> BFS(int x) { // got this code from algorithms & data structures from last year
-		boolean visited[] = new boolean[V];
-	    LinkedList<Integer> queue = new LinkedList<Integer>();
-	    ArrayList<Integer> order= new ArrayList<Integer>();
-	    visited[x]=true;
-	    queue.add(x);
-	    while (queue.size() != 0) {
-            x = queue.poll();           
-            order.add(x);
-            Iterator<Integer> i = adj[x].listIterator();
-            while (i.hasNext()) {
-                int n = i.next();
-                if (!visited[n]) {
-                    visited[n] = true;
-                    queue.add(n);
-                }
-            }
-        }
-        return order;
 	}
 }

@@ -10,22 +10,17 @@ class DAGTest {
 	@Test
 	void testDAGContructor() {
 		DAG tester = new DAG(10);
-		tester.addEdge(1, 2);	
-		tester.addEdge(2, 3);	
-		tester.addEdge(2, 4);
-		tester.addEdge(4, 5);
-		tester.addEdge(5, 6);
-		tester.addEdge(5, 7);
+		tester.addEdge(1,2);	
+		tester.addEdge(2,3);	
+		tester.addEdge(2,4);
+		tester.addEdge(4,5);
+		tester.addEdge(5,6);
+		tester.addEdge(5,7);
 		
 		assertEquals("Number of edges should be 10",10,tester.E());
 		assertEquals("Number of edges should be 6",6,tester.V());
-		assertEquals("Number of indegree of the 2 vertex should be 1",1,tester.indegree(2));
-		assertEquals("Number of outdegree of the 2 vertex should be 2",2,tester.outdegree(2));
-	}
-	
-	@Test
-	void testEmptyDAG() {
-		DAG tester = new DAG(10);
+		assertEquals("Number of indegree of the 4 vertex should be 1",1,tester.indegree(4));
+		assertEquals("Number of outdegree of the 4 vertex should be 1",1,tester.outdegree(4));
 	}
 	
 	@Test
@@ -43,8 +38,16 @@ class DAGTest {
 	}
 	
 	@Test
+	void testEmptyDAG() {
+		DAG tester = new DAG(10);
+	}
+	
+
+	
+	@Test
 	void testLCA() {
 		DAG tester = new DAG(10);
+		
 	}
 
 	@Test
