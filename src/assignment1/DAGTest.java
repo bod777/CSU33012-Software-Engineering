@@ -53,9 +53,9 @@ class DAGTest {
 		NoCycleDAG.addEdge(2,4);
 		
 		CycleDAG.findCycle(1);
-		assertTrue(CycleDAG.hasCycle());
+		assertTrue("Return true as DAG has a cycle.",CycleDAG.hasCycle());
 		NoCycleDAG.findCycle(1);		
-		assertFalse(NoCycleDAG.hasCycle());
+		assertFalse("Returns false as DAG has no cycle.",NoCycleDAG.hasCycle());
 	}
 	
 	@Test
@@ -98,8 +98,8 @@ class DAGTest {
 		nonDAG.addEdge(2,3);
 		nonDAG.addEdge(3,1);
 				
-		assertEquals("",-1,nonDAG.LCA(2,3));
-		assertEquals("",-1,nonDAG.LCA(1,3));
-		assertEquals("",-1,nonDAG.LCA(3,1));
+		assertEquals("The LCA for a non-DAG (since it has a cycle) returns -1.",-1,nonDAG.LCA(2,3));
+		assertEquals("The LCA for a non-DAG (since it has a cycle) returns -1.",-1,nonDAG.LCA(1,3));
+		assertEquals("The LCA for a non-DAG (since it has a cycle) returns -1.",-1,nonDAG.LCA(3,1));
 	}
 }
