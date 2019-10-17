@@ -5,9 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-/* NEED TO ADD IN assertEquals comments */
-
-
 class lowestCommonAncestorTest {
 
 	@Test

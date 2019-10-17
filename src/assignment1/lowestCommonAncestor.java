@@ -3,7 +3,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 
-// Note: 
 public class lowestCommonAncestor<Key extends Comparable<Key>>
 {
 /* Standard BST code */
