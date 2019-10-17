@@ -76,9 +76,9 @@ class lowestCommonAncestorTest {
 		tree.put(2);	//		2	4
 		tree.put(5);	//	   /	 \
 		tree.put(1);	//	  1		  5
-		assertEquals("[]",(Integer)6,tree.lowestCommonAncestor(5,6));
-		assertEquals("[]",(Integer)10,tree.lowestCommonAncestor(8,11));
-		assertEquals("[]",(Integer)3,tree.lowestCommonAncestor(1,5));
+		assertEquals("The LCA of 5 and 6 is 6.",(Integer)6,tree.lowestCommonAncestor(5,6));
+		assertEquals("The LCA of 8 and 11 is 10.",(Integer)10,tree.lowestCommonAncestor(8,11));
+		assertEquals("The LCA of 1 and 5 is 3.",(Integer)3,tree.lowestCommonAncestor(1,5));
 	}
 	
 	@Test
@@ -92,11 +92,11 @@ class lowestCommonAncestorTest {
 		tree.put("pig");	
 		tree.put("fish");	
 
-		assertEquals("[]","cow",tree.lowestCommonAncestor("ant","monkey"));
-		assertEquals("[]","monkey",tree.lowestCommonAncestor("fish","pig"));
-		assertEquals("[]","dog",tree.lowestCommonAncestor("monkey","dog"));
+		assertEquals("The LCA of ant and monkey is cow.","cow",tree.lowestCommonAncestor("ant","monkey"));
+		assertEquals("The LCA of fish and pig is monkey.","monkey",tree.lowestCommonAncestor("fish","pig"));
+		assertEquals("The LCA of monkey and dog is dog.","dog",tree.lowestCommonAncestor("monkey","dog"));
 		tree.put("");
-		assertEquals("[]","cow",tree.lowestCommonAncestor("","dog"));
+		assertEquals("The LCA of blank and dog is cow.","cow",tree.lowestCommonAncestor("","dog"));
 	}
 	
 	@Test
@@ -108,44 +108,44 @@ class lowestCommonAncestorTest {
 		tree.put(7);							
 		tree.put(6);		
 		tree.put(5);		
-		assertEquals("[]",(Integer)6,tree.lowestCommonAncestor(5,6));
-		assertEquals("[]",(Integer)9,tree.lowestCommonAncestor(7,9));
-		assertEquals("[]",(Integer)10,tree.lowestCommonAncestor(5,10));	
+		assertEquals("The LCA of 5 and 6 is 6.",(Integer)6,tree.lowestCommonAncestor(5,6));
+		assertEquals("The LCA of 7 and 9 is 9.",(Integer)9,tree.lowestCommonAncestor(7,9));
+		assertEquals("The LCA of 5 and 10 is 10.",(Integer)10,tree.lowestCommonAncestor(5,10));	
 	}
 	
 	@Test
 	public void testingPutForInteger() {
 		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
 		tree.put(null);
-		assertEquals("[]","()",tree.printKeysInOrder());
+		assertEquals("The tree has 0 nodes.","()",tree.printKeysInOrder());
 		tree.put(10);	
-		assertEquals("[]","(()10())",tree.printKeysInOrder());
+		assertEquals("The tree has 1 nodes.","(()10())",tree.printKeysInOrder());
 		tree.put(8);	
 		tree.put(11);	
-		assertEquals("[]","((()8())10(()11()))",tree.printKeysInOrder());
+		assertEquals("The tree has 3 nodes.","((()8())10(()11()))",tree.printKeysInOrder());
 		tree.put(6);							
 		tree.put(9);	
-		assertEquals("[]","(((()6())8(()9()))10(()11()))",tree.printKeysInOrder());
+		assertEquals("The tree has 5 nodes.","(((()6())8(()9()))10(()11()))",tree.printKeysInOrder());
 		tree.put(7);	
-		assertEquals("[]","(((()6(()7()))8(()9()))10(()11()))",tree.printKeysInOrder());
+		assertEquals("The tree has 6 nodes.","(((()6(()7()))8(()9()))10(()11()))",tree.printKeysInOrder());
 		tree.put(8);	
-		assertEquals("[]","(((()6(()7()))8(()9()))10(()11()))",tree.printKeysInOrder());
+		assertEquals("The tree has 7 nodes.","(((()6(()7()))8(()9()))10(()11()))",tree.printKeysInOrder());
 	}
 	
 	@Test
 	public void testingPutForString() {
 		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
 		tree.put(null);
-		assertEquals("[]","()",tree.printKeysInOrder());
+		assertEquals("The tree has 0 nodes.","()",tree.printKeysInOrder());
 		tree.put("Bríd");	
-		assertEquals("[]","(()Bríd())",tree.printKeysInOrder());
+		assertEquals("The tree has 1 nodes.","(()Bríd())",tree.printKeysInOrder());
 		tree.put("Marie");	
 		tree.put("Philip");	
-		assertEquals("[]","(()Bríd(()Marie(()Philip())))",tree.printKeysInOrder());
+		assertEquals("The tree has 3 nodes.","(()Bríd(()Marie(()Philip())))",tree.printKeysInOrder());
 		tree.put("");	
-		assertEquals("[]","((()())Bríd(()Marie(()Philip())))",tree.printKeysInOrder());
+		assertEquals("The tree has 4 nodes.","((()())Bríd(()Marie(()Philip())))",tree.printKeysInOrder());
 		tree.put("Marie");	
-		assertEquals("[]","((()())Bríd(()Marie(()Philip())))",tree.printKeysInOrder());
+		assertEquals("The tree has 5 nodes.","((()())Bríd(()Marie(()Philip())))",tree.printKeysInOrder());
 	}
 	
 	@Test
@@ -153,14 +153,14 @@ class lowestCommonAncestorTest {
 		lowestCommonAncestor<String> treeString = new lowestCommonAncestor<String>();
 		lowestCommonAncestor<Integer> treeInteger = new lowestCommonAncestor<Integer>();
 		
-		assertTrue("[]",treeString.isEmpty());
-		assertTrue("[]",treeInteger.isEmpty());
+		assertTrue("The tree is empty.",treeString.isEmpty());
+		assertTrue("The tree is empty.",treeInteger.isEmpty());
 		
 		treeString.put("Hello");
-		assertFalse("[]",treeString.isEmpty());
+		assertFalse("The tree is not empty.",treeString.isEmpty());
 		
 		treeInteger.put(1);
-		assertFalse("[]",treeInteger.isEmpty());
+		assertFalse("The tree is not empty.",treeInteger.isEmpty());
 	}
 	
 	@Test
@@ -168,10 +168,10 @@ class lowestCommonAncestorTest {
 		lowestCommonAncestor<String> tree = new lowestCommonAncestor<String>();
 		
 		tree.put(null);
-		assertEquals("[]",0,tree.size());
+		assertEquals("The tree has no nodes.",0,tree.size());
 		
 		tree.put("Hello");
-		assertEquals("[]",1,tree.size());
+		assertEquals("The tree has 1 nodes.",1,tree.size());
 		
 		tree.put("Bríd");
 		tree.put("Marie");
@@ -181,7 +181,7 @@ class lowestCommonAncestorTest {
 		tree.put("Lily");
 		tree.put("Phil");
 		
-		assertEquals("[]",8,tree.size());
+		assertEquals("The tree has 8 nodes.",8,tree.size());
 	}
 	
 	@Test
@@ -189,10 +189,10 @@ class lowestCommonAncestorTest {
 		lowestCommonAncestor<Integer> tree = new lowestCommonAncestor<Integer>();
 		
 		tree.put(null);
-		assertEquals("[]",0,tree.size());
+		assertEquals("The tree has no nodes.",0,tree.size());
 		
 		tree.put(11);
-		assertEquals("[]",1,tree.size());
+		assertEquals("The tree has 1 nodes.",1,tree.size());
 		
 		tree.put(10);	
 		tree.put(9);	  
@@ -201,6 +201,6 @@ class lowestCommonAncestorTest {
 		tree.put(6);		
 		tree.put(5);
 		
-		assertEquals("[]",7,tree.size());
+		assertEquals("The tree has 7 nodes.",7,tree.size());
 	}
 }
