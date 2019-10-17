@@ -78,5 +78,30 @@ class DAGTest {
 	@Test
 	void testEmptyDAG() {
 		DAG tester = new DAG(10);
+		assertEquals("The LCA for 4 and 6 is null.",null,tester.LCA(4,6));
+	}
+	@Test
+	void testInputsDAG() {
+		DAG tester = new DAG(10);
+		tester.addEdge(1,2);	
+		tester.addEdge(2,3);	
+		tester.addEdge(2,4);
+		tester.addEdge(4,5);
+		assertEquals("The LCA for 4 and null is null.",null,tester.LCA(4,null));
+		assertEquals("The LCA for null and null is null.",null,tester.LCA(null,null));
+		assertEquals("The LCA for 11 and 4 is null.",null,tester.LCA(11,4));
+		assertEquals("The LCA for 11 and 12 is null.",null,tester.LCA(11,12));
+	}
+	@Test
+	public void testIfNotADAG() {
+		DAG nonDAG = new DAG(8);
+		nonDAG.addEdge(0,1);
+		nonDAG.addEdge(1,2);
+		nonDAG.addEdge(2,3);
+		nonDAG.addEdge(3,1);
+				
+		assertEquals("",null,nonDAG.LCA(2,3));
+		assertEquals("",null,nonDAG.LCA(1,3));
+		assertEquals("",null,nonDAG.LCA(3,1));
 	}
 }
