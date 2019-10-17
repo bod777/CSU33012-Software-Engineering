@@ -35,7 +35,7 @@ class DAGTest {
 		assertEquals("Number of edges should be 3",3,tester.V());
 		tester.addEdge(4,5);
 		tester.addEdge(5,3);
-		tester.addEdge(8,9);
+		tester.addEdge(5,6);
 		assertEquals("Number of edges should be 6",6,tester.V());
 	}
 	
@@ -78,7 +78,7 @@ class DAGTest {
 	@Test
 	void testEmptyDAG() {
 		DAG tester = new DAG(10);
-		assertEquals("The LCA for 4 and 6 is null.",null,tester.LCA(4,6));
+		assertEquals("The LCA for 4 and 6 is null.",-1,tester.LCA(4,6));
 	}
 	@Test
 	void testInputsDAG() {
@@ -87,10 +87,8 @@ class DAGTest {
 		tester.addEdge(2,3);	
 		tester.addEdge(2,4);
 		tester.addEdge(4,5);
-		assertEquals("The LCA for 4 and null is null.",null,tester.LCA(4,null));
-		assertEquals("The LCA for null and null is null.",null,tester.LCA(null,null));
-		assertEquals("The LCA for 11 and 4 is null.",null,tester.LCA(11,4));
-		assertEquals("The LCA for 11 and 12 is null.",null,tester.LCA(11,12));
+		assertEquals("The LCA for 11 and 4 is null.",-1,tester.LCA(11,4));
+		assertEquals("The LCA for 11 and 12 is null.",-1,tester.LCA(11,12));
 	}
 	@Test
 	public void testIfNotADAG() {
@@ -100,8 +98,8 @@ class DAGTest {
 		nonDAG.addEdge(2,3);
 		nonDAG.addEdge(3,1);
 				
-		assertEquals("",null,nonDAG.LCA(2,3));
-		assertEquals("",null,nonDAG.LCA(1,3));
-		assertEquals("",null,nonDAG.LCA(3,1));
+		assertEquals("",-1,nonDAG.LCA(2,3));
+		assertEquals("",-1,nonDAG.LCA(1,3));
+		assertEquals("",-1,nonDAG.LCA(3,1));
 	}
 }

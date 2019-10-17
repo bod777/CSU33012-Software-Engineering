@@ -108,6 +108,60 @@ public class DAG {
         stack[v] = false;		
 	}
 	public int LCA(int v, int w) {
-		return v;
+		findCycle(0);
+		
+		if(hasCycle) {
+			return -1;
+		}
+		DAG reverse = reverse();
+		ArrayList<Integer> pathofV = reverse.BFS(v);
+		ArrayList<Integer> pathofW = reverse.BFS(w);
+		ArrayList<Integer> mutuals = new ArrayList<Integer>();
+		boolean found = false;
+		for(int i = 0; i<pathofV.size(); i++){
+
+			for(int j = 0; j<pathofW.size(); j++){
+				if(pathofV.get(i)==pathofW.get(j)) {
+					mutuals.add(pathofV.get(i));
+					found=true;
+				}
+			}
+		}
+		if(found) {
+			
+			return mutuals.get(0);
+		}
+		else {
+			return -1;
+		}
+	}
+	public DAG reverse() { // returns DAG in reverse order
+		DAG reverse = new DAG(V);
+		for (int v = 0; v < V; v++) {
+            for (int w : adj(v)) {
+                reverse.addEdge(w, v); 
+            }
+        }
+        return reverse;		
+	}
+	public ArrayList<Integer> BFS(int x) { // got this code from algorithms & data structures from last year
+		boolean visited[] = new boolean[V];
+	    LinkedList<Integer> queue = new LinkedList<Integer>();
+	    ArrayList<Integer> order= new ArrayList<Integer>();
+	    visited[x]=true;
+	    queue.add(x);
+	    while (queue.size() != 0) {
+            x = queue.poll();           
+            order.add(x);
+            Iterator<Integer> i = adj[x].listIterator();
+            while (i.hasNext()) {
+                int n = i.next();
+                if (!visited[n]) {
+                    visited[n] = true;
+                    queue.add(n);
+                }
+            }
+        }
+        return order;
 	}
 }
