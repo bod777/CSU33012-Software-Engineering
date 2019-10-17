@@ -108,6 +108,10 @@ public class DAG {
         stack[v] = false;		
 	}
 	public int LCA(int v, int w) {
+		if (validVertex(v)==false || validVertex(w)==false) {
+			return -1;
+		}
+		
 		findCycle(0);
 		
 		if(hasCycle) {
