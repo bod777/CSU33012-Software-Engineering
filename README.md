@@ -1,2 +1,2 @@
 # SoftwareEngineering
- Practice for STU33001
+Assignments for Software Engineering Module
