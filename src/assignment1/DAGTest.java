@@ -1,6 +1,8 @@
 package assignment1;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -38,20 +40,42 @@ class DAGTest {
 	}
 	
 	@Test
-	void testEmptyDAG() {
-		DAG tester = new DAG(10);
+	void testHasCycle() {
+		DAG CycleDAG = new DAG(10);
+		DAG NoCycleDAG = new DAG(10);
+		
+		CycleDAG.addEdge(1,2);
+		CycleDAG.addEdge(2,3);
+		CycleDAG.addEdge(3,1);
+		
+		NoCycleDAG.addEdge(1,2);	
+		NoCycleDAG.addEdge(2,3);	
+		NoCycleDAG.addEdge(2,4);
+		
+		CycleDAG.findCycle(1);
+		assertTrue(CycleDAG.hasCycle());
+		NoCycleDAG.findCycle(1);		
+		assertFalse(NoCycleDAG.hasCycle());
 	}
-	
-
 	
 	@Test
 	void testLCA() {
 		DAG tester = new DAG(10);
+		tester.addEdge(1,2);	
+		tester.addEdge(2,3);	
+		tester.addEdge(2,4);
+		tester.addEdge(4,5);
+		tester.addEdge(5,6);
+		tester.addEdge(5,7);
+		tester.addEdge(3,6);
 		
-	}
-
+		assertEquals("The LCA for 4 and 6 is 2.",2,tester.LCA(4,6));
+		assertEquals("The LCA for 7 and 6 is 5.",5,tester.LCA(7,6));
+		assertEquals("The LCA for 1 and 2 is 1.",1,tester.LCA(1,2));
+	}	
+	
 	@Test
-	void testHasCycle() {
-		
+	void testEmptyDAG() {
+		DAG tester = new DAG(10);
 	}
 }

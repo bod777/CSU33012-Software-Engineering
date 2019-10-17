@@ -107,4 +107,7 @@ public class DAG {
         }
         stack[v] = false;		
 	}
+	public int LCA(int v, int w) {
+		return v;
+	}
 }
